@@ -8,7 +8,7 @@ function validLgth() {
     alert('Invalid character!');
     return validLgth();
   } else {
-    if (input < 8 || input > 129) {
+    if (input < 8 || input > 128) {
       alert('Invalid length!');
       return validLgth();
     } else {
@@ -24,36 +24,30 @@ function generatePassword() {
   var nums = confirm("Include numeric characters?");
   var spec = confirm("Include special characters?");
 
-  // Arrays of different character types
-  var lowChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", 
-  "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-  var upChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", 
-  "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-
-  var numChars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-  // Missing / and "
-  var specChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "[", "]", "{", "}", "`", 
-  "~", "-", "_", "/", "?", "<", ">", "=", "+", ",", ".", "'", ' ', "|", ";", ":"];
+  // Strings containing different character types
+  var lowStr = "abcdefghijklmnopqrstuvwxyz";
+  var upStr = lowStr.toUpperCase();
+  var numStr = '0123456789';
+  var specStr = "!@#$%^&*()[]{}`~-_/\\?<>=+,.'|;: ";
 
   // Logic to determine which characters should be randomly chosen
-  var usedChars = [];
+  var usedChars = '';
 
   if (lowLet) {
-    usedChars = usedChars.concat(lowChar);
+    usedChars = usedChars.concat(lowStr);
   }
   if (upLet) {
-    usedChars = usedChars.concat(upChar);
+    usedChars = usedChars.concat(upStr);
   }
   if (nums) {
-    usedChars = usedChars.concat(numChars);
+    usedChars = usedChars.concat(numStr);
   }
   if (spec) {
-    usedChars = usedChars.concat(specChar);
+    usedChars = usedChars.concat(specStr);
   }
   if (usedChars.length === 0) {
     alert('No characters selected! Please try again.');
+    return "";
   }
 
   // Randomly chooses an index of a given array
@@ -68,7 +62,7 @@ function generatePassword() {
   for (var i = 0; i < lgth; i++) {
     password += randomChar(usedChars);
   }
-
+  
   return password;
 }
 
@@ -78,7 +72,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
